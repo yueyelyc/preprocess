@@ -1,0 +1,12 @@
+java -Djava.library.path="libs/natives/" 
+     -cp libs/jars/lwjgl.jar:libs/jars/lwjgl_util.jar DisplayTest
+	 
+javac -cp lib/jackson-all-1.8.5.jar:lib/log4j-1.2.16.jar:lib/mysql-connector-java-5.1.22-bin.jar:src/google4j/utils/Config.java src/utils/CreateTables.java 
+
+
+CREATE TABLE IF NOT EXISTS Places_NYC_Google (accessDate VARCHAR(35) NOT NULL, id TEXT NOT NULL, place_id VARCHAR(256) CHARACTER SET utf8 NOT NULL, name VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, icon TEXT, reference TEXT, latitude TEXT NOT NULL, longitude TEXT NOT NULL, viewport TEXT, scope TEXT, categories TEXT NOT NULL, vicinity TEXT, formatted_address TEXT, rating DOUBLE NOT NULL, price_level INT NOT NULL, alt_ids TEXT, photos VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL, opening_hours TEXT, accessTimeStamp BIGINT NOT NULL DEFAULT 1443672000000, CONSTRAINT entryID PRIMARY KEY (accessDate, place_id),INDEX accessDate_BINDEX (accessDate) USING BTREE, INDEX accessTimeStamp_BINDEX (accessTimeStamp) USING BTREE, INDEX id_BINDEX (id(15)) USING BTREE, INDEX place_id_BINDEX (place_id) USING BTREE, INDEX name_BINDEX (name(15)) USING BTREE, INDEX icon_BINDEX (icon(15)) USING BTREE, INDEX reference_BINDEX (reference(15)) USING BTREE, INDEX latitude_BINDEX (latitude(10)) USING BTREE, INDEX longitude_BINDEX (longitude(10)) USING BTREE, INDEX scope_BINDEX (scope(5)) USING BTREE, INDEX categories_BINDEX (categories(50)) USING BTREE, INDEX rating_BINDEX (rating) USING BTREE, INDEX price_level_BINDEX (price_level) USING BTREE ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+
+CREATE TABLE IF NOT EXISTS Scanned_Google_Places (place_id VARCHAR(256) CHARACTER SET utf8 NOT NULL, scannedTime VARCHAR(50) NOT NULL, scannedTimeStamp BIGINT NOT NULL DEFAULT 1443672000000, CONSTRAINT entryID PRIMARY KEY (place_id, scannedTimeStamp), INDEX place_id_BINDEX (place_id) USING BTREE, INDEX scannedTimeStamp_BINDEX (scannedTimeStamp) USING BTREE ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS Flushing_google_POI_context (id VARCHAR(256) CHARACTER SET utf8 NOT NULL PRIMARY KEY, latitude VARCHAR(50) NOT NULL, longitude VARCHAR(50) NOT NULL, tags TEXT, accessDate VARCHAR(35) NOT NULL, zone text NOT NULL, source text NOT NULL, INDEX id_BINDEX (id) USING BTREE, INDEX latitude_BINDEX (latitude) USING BTREE, INDEX longitude_BINDEX (longitude) USING BTREE, INDEX accessDate_BINDEX (accessDate) USING BTREE ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
